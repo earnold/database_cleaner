@@ -55,6 +55,11 @@ module ActiveRecord
         execute("DELETE FROM #{quote_table_name(table_name)};")
       end
       alias truncate_table delete_table
+      
+      def truncate_tables(table_names)
+        table_names << 'sqlite_sequence'
+        super(table_names)
+      end
     end
 
     class JdbcAdapter < AbstractAdapter
